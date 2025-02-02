@@ -10,7 +10,7 @@ import Calendar from "src/components/Calendar"; // Import the Calendar component
 
 // Note: Add the fetchPostDates function in RootLayout (if not already present)
 const fetchPostDates = async () => {
-  const dates = await getPostDates(); // Assuming getPostDates is imported correctly
+  const dates = await fetchPostDates(); // Assuming getPostDates is imported correctly
   return dates;
 };
 
