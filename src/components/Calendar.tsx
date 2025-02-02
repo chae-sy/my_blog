@@ -1,50 +1,44 @@
+// src/components/Calendar.tsx
 import { useEffect, useState } from "react";
 import { getPostDates } from "src/apis/notion-client/getPosts"; // Adjust path
+import { calendarDayStyle } from "src/styles/calendar"; // Adjust path
 
-const Calendar = () => {
-  const [postDates, setPostDates] = useState<string[]>([]);
+interface CalendarProps {
+  postDates: string[]; // Array of post dates in YYYY-MM-DD format
+}
+
+const Calendar = ({ postDates }: CalendarProps) => {
+  const [postDatesState, setPostDatesState] = useState<string[]>([]);
 
   useEffect(() => {
-    getPostDates().then(setPostDates);
+    const fetchPostDates = async () => {
+      const dates = await getPostDates();
+      setPostDatesState(dates);
+    };
+
+    fetchPostDates();
   }, []);
 
-  const today = new Date();
-  const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+  const isPostDate = (date: string) => {
+    return postDatesState.includes(date);
+  };
 
   return (
     <div className="calendar">
-      <h3>📅 Post Calendar</h3>
-      <div className="grid">
-        {[...Array(daysInMonth)].map((_, i) => {
-          const date = new Date(today.getFullYear(), today.getMonth(), i + 1)
-            .toISOString()
-            .split("T")[0];
+      <h3>Post Calendar</h3>
+      <div className="calendar-grid">
+        {Array.from({ length: 30 }).map((_, index) => {
+          const date = `2025-02-${index + 1 < 10 ? "0" + (index + 1) : index + 1}`;
           return (
-            <div key={i} className={`day ${postDates.includes(date) ? "posted" : ""}`}>
-              {i + 1}
+            <div
+              key={index}
+              style={isPostDate(date) ? calendarDayStyle.hasPost : {}}
+            >
+              {index + 1}
             </div>
           );
         })}
       </div>
-      <style jsx>{`
-        .calendar {
-          text-align: center;
-          padding: 10px;
-        }
-        .grid {
-          display: grid;
-          grid-template-columns: repeat(7, 1fr);
-          gap: 5px;
-        }
-        .day {
-          padding: 5px;
-          border-radius: 5px;
-          text-align: center;
-        }
-        .posted {
-          background-color: lightblue;
-        }
-      `}</style>
     </div>
   );
 };
