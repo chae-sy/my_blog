@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getPostDates } from "../path/to/getPosts"; // Adjust path
+import { getPostDates } from "src/apis/notion-client/getPosts"; // Adjust path
 
 const Calendar = () => {
   const [postDates, setPostDates] = useState<string[]>([]);
