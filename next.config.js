@@ -8,6 +8,7 @@ module.exports = {
       dns: false, // Disable dns module for the frontend
       net: false, // Disable net module for the frontend
       tls: false, // Disable tls module for the frontend
+      http2: false,
     };
     return config;
   },
