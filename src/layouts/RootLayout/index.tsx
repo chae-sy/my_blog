@@ -39,6 +39,7 @@ import 'prismjs/components/prism-swift.js'
 import 'prismjs/components/prism-wasm.js'
 import 'prismjs/components/prism-yaml.js'
 import "prismjs/components/prism-go.js"
+import Calendar from "src/components/Calendar"; //Import the Calendar component
 
 type Props = {
   children: ReactNode
@@ -54,13 +55,14 @@ const RootLayout = ({ children }: Props) => {
   return (
     <ThemeProvider scheme={scheme}>
       <Scripts />
-      {/* // TODO: replace react query */}
-      {/* {metaConfig.type !== "Paper" && <Header />} */}
       <Header fullWidth={false} />
-      <StyledMain>{children}</StyledMain>
+      <StyledMain>
+        <Calendar /> {/* ✅ Add the Calendar here */}
+        {children}
+      </StyledMain>
     </ThemeProvider>
-  )
-}
+  );
+};
 
 export default RootLayout
 

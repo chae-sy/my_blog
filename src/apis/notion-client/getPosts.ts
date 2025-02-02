@@ -57,3 +57,8 @@ export const getPosts = async () => {
     return posts
   }
 }
+
+export const getPostDates = async () => {
+  const posts = await getPosts();
+  return posts.map(post => new Date(post.createdTime).toISOString().split("T")[0]); // YYYY-MM-DD format
+};
