@@ -9,10 +9,11 @@ import Prism from "prismjs/prism";
 import Calendar from "src/components/Calendar"; // Import the Calendar component
 
 // Note: Add the fetchPostDates function in RootLayout (if not already present)
-const fetchPostDates = async () => {
-  const dates = await fetchPostDates(); // Assuming getPostDates is imported correctly
+const fetchPostDates = async (): Promise<string[]> => {
+  const dates = await getPostDates(); // Assuming getPostDates is imported correctly
   return dates;
 };
+
 
 type Props = {
   children: ReactNode;
