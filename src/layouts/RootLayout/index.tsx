@@ -45,10 +45,20 @@ type Props = {
   children: ReactNode
 }
 
+
 const RootLayout = ({ children }: Props) => {
   const [scheme] = useScheme()
+  const [postDates, setPostDates] = useState<string[]>([]); // State to store post dates
   useGtagEffect()
+
   useEffect(() => {
+    // Fetch post dates when the component mounts
+    const fetchPostDates = async () => {
+      const dates = await getPostDates();
+      setPostDates(dates); // Set the post dates in the state
+    }
+    fetchPostDates();
+
     Prism.highlightAll();
   }, []);
 
@@ -57,8 +67,10 @@ const RootLayout = ({ children }: Props) => {
       <Scripts />
       <Header fullWidth={false} />
       <StyledMain>
-        <Calendar /> {/* ✅ Add the Calendar here */}
-        {children}
+        <StyledSidebar>
+          <Calendar postDates={postDates} /> {/* Pass the postDates as a prop */}
+        </StyledSidebar>
+        <StyledContent>{children}</StyledContent>
       </StyledMain>
     </ThemeProvider>
   );
@@ -67,8 +79,21 @@ const RootLayout = ({ children }: Props) => {
 export default RootLayout
 
 const StyledMain = styled.main`
+  display: flex;
   margin: 0 auto;
   width: 100%;
   max-width: 1120px;
   padding: 0 1rem;
+`
+
+const StyledSidebar = styled.aside`
+  width: 250px;
+  background-color: #f4f4f4;
+  padding: 1rem;
+  border-right: 2px solid #ddd;
+`
+
+const StyledContent = styled.section`
+  flex-grow: 1;
+  padding: 1rem;
 `

@@ -1,6 +1,4 @@
-// src/components/Calendar.tsx
 import { useEffect, useState } from "react";
-import { getPostDates } from "src/apis/notion-client/getPosts"; // Adjust path
 import { calendarDayStyle } from "src/styles/calendar"; // Adjust path
 
 interface CalendarProps {
@@ -8,33 +6,28 @@ interface CalendarProps {
 }
 
 const Calendar = ({ postDates }: CalendarProps) => {
-  const [postDatesState, setPostDatesState] = useState<string[]>([]);
-
-  useEffect(() => {
-    const fetchPostDates = async () => {
-      const dates = await getPostDates();
-      setPostDatesState(dates);
-    };
-
-    fetchPostDates();
-  }, []);
-
+  // Directly use the postDates prop instead of fetching inside useEffect
   const isPostDate = (date: string) => {
-    return postDatesState.includes(date);
+    return postDates.includes(date); // Check if the date is in the postDates array
   };
+
+  const currentMonth = new Date(); // Get the current month and year
+  const daysInMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0).getDate(); // Get the number of days in the current month
 
   return (
     <div className="calendar">
       <h3>Post Calendar</h3>
       <div className="calendar-grid">
-        {Array.from({ length: 30 }).map((_, index) => {
-          const date = `2025-02-${index + 1 < 10 ? "0" + (index + 1) : index + 1}`;
+        {Array.from({ length: daysInMonth }).map((_, index) => {
+          const day = index + 1;
+          const date = `${currentMonth.getFullYear()}-${(currentMonth.getMonth() + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`; // Format as YYYY-MM-DD
+          
           return (
             <div
               key={index}
               style={isPostDate(date) ? calendarDayStyle.hasPost : {}}
             >
-              {index + 1}
+              {day}
             </div>
           );
         })}
