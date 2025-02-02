@@ -1,65 +1,35 @@
-import React, { useState, useEffect, ReactNode } from "react";
-import { ThemeProvider } from "./ThemeProvider"
-import useScheme from "src/hooks/useScheme"
-import Header from "./Header"
-import styled from "@emotion/styled"
-import Scripts from "src/layouts/RootLayout/Scripts"
-import useGtagEffect from "./useGtagEffect"
-import Prism from "prismjs/prism"
-import 'prismjs/components/prism-markup-templating.js'
-import 'prismjs/components/prism-markup.js'
-import 'prismjs/components/prism-bash.js'
-import 'prismjs/components/prism-c.js'
-import 'prismjs/components/prism-cpp.js'
-import 'prismjs/components/prism-csharp.js'
-import 'prismjs/components/prism-docker.js'
-import 'prismjs/components/prism-java.js'
-import 'prismjs/components/prism-js-templates.js'
-import 'prismjs/components/prism-coffeescript.js'
-import 'prismjs/components/prism-diff.js'
-import 'prismjs/components/prism-git.js'
-import 'prismjs/components/prism-go.js'
-import 'prismjs/components/prism-kotlin.js'
-import 'prismjs/components/prism-graphql.js'
-import 'prismjs/components/prism-handlebars.js'
-import 'prismjs/components/prism-less.js'
-import 'prismjs/components/prism-makefile.js'
-import 'prismjs/components/prism-markdown.js'
-import 'prismjs/components/prism-objectivec.js'
-import 'prismjs/components/prism-ocaml.js'
-import 'prismjs/components/prism-python.js'
-import 'prismjs/components/prism-reason.js'
-import 'prismjs/components/prism-rust.js'
-import 'prismjs/components/prism-sass.js'
-import 'prismjs/components/prism-scss.js'
-import 'prismjs/components/prism-solidity.js'
-import 'prismjs/components/prism-sql.js'
-import 'prismjs/components/prism-stylus.js'
-import 'prismjs/components/prism-swift.js'
-import 'prismjs/components/prism-wasm.js'
-import 'prismjs/components/prism-yaml.js'
-import "prismjs/components/prism-go.js"
-import Calendar from "src/components/Calendar"; //Import the Calendar component
+import React, { ReactNode, useEffect, useState } from "react";
+import { ThemeProvider } from "./ThemeProvider";
+import useScheme from "src/hooks/useScheme";
+import Header from "./Header";
+import styled from "@emotion/styled";
+import Scripts from "src/layouts/RootLayout/Scripts";
+import useGtagEffect from "./useGtagEffect";
+import Prism from "prismjs/prism";
+import Calendar from "src/components/Calendar"; // Import the Calendar component
+
+// Note: Add the fetchPostDates function in RootLayout (if not already present)
+const fetchPostDates = async () => {
+  const dates = await getPostDates(); // Assuming getPostDates is imported correctly
+  return dates;
+};
 
 type Props = {
-  children: ReactNode
-}
-
+  children: ReactNode;
+};
 
 const RootLayout = ({ children }: Props) => {
   const [scheme] = useScheme();
   const [postDates, setPostDates] = useState<string[]>([]); // State to store post dates
-
   useGtagEffect();
 
   useEffect(() => {
-    const fetchPostDates = async () => {
-      // Fetch post dates here
-      const dates = await getPostDates();
+    const fetchPostDatesData = async () => {
+      const dates = await fetchPostDates(); // Use fetchPostDates here
       setPostDates(dates); // Set the fetched post dates
     };
 
-    fetchPostDates();
+    fetchPostDatesData();
   }, []);
 
   useEffect(() => {
@@ -71,7 +41,7 @@ const RootLayout = ({ children }: Props) => {
       <Scripts />
       <Header fullWidth={false} />
       <StyledMain>
-        <Calendar postDates={postDates} /> {/* Pass postDates to Calendar */}
+        <Calendar postDates={postDates} /> {/* Pass postDates as a prop */}
         {children}
       </StyledMain>
     </ThemeProvider>
