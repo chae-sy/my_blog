@@ -6,10 +6,10 @@ export const COLOR_SET: Record<string, string> = {
   4: "rgb(191 219 254)",
   5: "rgb(204 251 241)",
   6: "rgb(187 247 208)",
-  7: "rgb(254 202 202)",
+  7: "rgb(231 229 228)",
   8: "rgb(254 249 195)",
   9: "rgb(221 214 254)",
-  A: "rgb(231 229 228)",
+  A: "rgb(254 202 202)",
   B: "rgb(226 232 240)",
   C: "rgb(252 231 243)",
   D: "rgb(233 213 255)",
@@ -27,10 +27,10 @@ export const COLOR_SET: Record<string, string> = {
 4: Light Blue
 5: Aqua
 6: Pale Green
-7: Light Red
+7: Very Light Gray
 8: Pale Yellow
 9: Pale Lavender (same as 0)
-A: Very Light Gray
+A: Light Red
 B: Light Blue
 C: Light Pink (similar to 1)
 D: Lavender Purple
