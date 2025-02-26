@@ -1,14 +1,14 @@
 export const COLOR_SET: Record<string, string> = {
-  0: "rgb(186 230 253)",
+  0: "rgb(221 214 254)",
   1: "rgb(254 205 211)",
   2: "rgb(245 208 254)",
-  3: "rgb(221 214 254)",
+  3: "rgb(186 230 253)",
   4: "rgb(191 219 254)",
   5: "rgb(204 251 241)",
   6: "rgb(187 247 208)",
   7: "rgb(254 202 202)",
   8: "rgb(254 249 195)",
-  9: "rgb(186 230 253)",
+  9: "rgb(221 214 254)",
   A: "rgb(231 229 228)",
   B: "rgb(226 232 240)",
   C: "rgb(252 231 243)",
@@ -20,10 +20,10 @@ export const COLOR_SET: Record<string, string> = {
 
 /*
 
-0: Light Sky Blue
+0: Light Sky Blue 
 1: Light Pink
-2: Lavender
-3: Pale Lavender
+2: Lavender 
+3: Pale Lavender 
 4: Light Blue
 5: Aqua
 6: Pale Green
