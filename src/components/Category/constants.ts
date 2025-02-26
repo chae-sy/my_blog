@@ -20,16 +20,16 @@ export const COLOR_SET: Record<string, string> = {
 
 /*
 
-0: Light Sky Blue 
+0: Pale Lavender 
 1: Light Pink
 2: Lavender 
-3: Pale Lavender 
+3: Light Sky Blue 
 4: Light Blue
 5: Aqua
 6: Pale Green
 7: Light Red
 8: Pale Yellow
-9: Light Sky Blue (same as 0)
+9: Pale Lavender (same as 0)
 A: Very Light Gray
 B: Light Blue
 C: Light Pink (similar to 1)
