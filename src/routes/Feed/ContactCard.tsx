@@ -5,6 +5,7 @@ import {
   AiOutlineGithub,
   AiOutlineInstagram,
   AiOutlineMail,
+  AiFillCopy,
 } from "react-icons/ai"
 import { CONFIG } from "site.config"
 import { Emoji } from "src/components/Emoji"
@@ -13,9 +14,40 @@ const ContactCard: React.FC = () => {
   return (
     <>
       <StyledTitle>
-        <Emoji>💬</Emoji> Contact
+        <Emoji>📭</Emoji> Contact
       </StyledTitle>
       <StyledWrapper>
+        {CONFIG.profile.email && (
+          <a
+            href={`mailto:${CONFIG.profile.email}`}
+            rel="noreferrer"
+            target="_blank"
+            css={{ overflow: "hidden" }}
+          >
+            <AiOutlineMail className="icon" />
+            <div className="name">sychaeee@g.skku.edu</div>
+          </a>
+        )}
+        {CONFIG.profile.CV && (
+          <a
+            href={`https://myblog-sychaes-projects.vercel.app/:${CONFIG.profile.email}`}
+            rel="noreferrer"
+            target="_blank"
+          >
+            <AiFillCopy className="icon" />
+            <div className="name">CV</div>
+          </a>
+        )}
+        {CONFIG.profile.linkedin && (
+          <a
+            href={`https://www.linkedin.com/in/${CONFIG.profile.linkedin}`}
+            rel="noreferrer"
+            target="_blank"
+          >
+            <AiFillLinkedin className="icon" />
+            <div className="name">linkedin</div>
+          </a>
+        )}
         {CONFIG.profile.github && (
           <a
             href={`https://github.com/${CONFIG.profile.github}`}
@@ -36,27 +68,8 @@ const ContactCard: React.FC = () => {
             <div className="name">instagram</div>
           </a>
         )}
-        {CONFIG.profile.email && (
-          <a
-            href={`mailto:${CONFIG.profile.email}`}
-            rel="noreferrer"
-            target="_blank"
-            css={{ overflow: "hidden" }}
-          >
-            <AiOutlineMail className="icon" />
-            <div className="name">sychaeee@g.skku.edu</div>
-          </a>
-        )}
-        {CONFIG.profile.linkedin && (
-          <a
-            href={`https://www.linkedin.com/in/${CONFIG.profile.linkedin}`}
-            rel="noreferrer"
-            target="_blank"
-          >
-            <AiFillLinkedin className="icon" />
-            <div className="name">linkedin</div>
-          </a>
-        )}
+        
+        
       </StyledWrapper>
     </>
   )
