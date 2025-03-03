@@ -12,10 +12,15 @@ interface FilterPostsParams {
 export function filterPosts({
   posts,
   q,
-  tag = undefined,
+  tag = "",
   category = DEFAULT_CATEGORY,
   order = "desc",
 }: FilterPostsParams): TPost[] {
+  // Ensure tag is reset upon refresh
+  if (typeof window !== "undefined" && !window.performance?.navigation?.type) {
+    tag = ""
+  }
+
   return posts
     .filter((post) => {
       const tagContent = post.tags ? post.tags.join(" ") : ""
