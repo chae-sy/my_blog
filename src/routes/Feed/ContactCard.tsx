@@ -30,7 +30,7 @@ const ContactCard: React.FC = () => {
         )}
         {CONFIG.profile.CV && (
           <a
-            href={`https://myblog-sychaes-projects.vercel.app/:${CONFIG.profile.CV}`}
+            href={`https://myblog-sychaes-projects.vercel.app/${CONFIG.profile.CV}`}
             rel="noreferrer"
             target="_blank"
           >
