@@ -12,7 +12,7 @@ export const Global = () => {
         body {
           margin: 0;
           padding: 0;
-          color: ${theme.colors.gray12};
+          color: ${theme.colors.gray12}; // color & background color
           background-color: ${theme.colors.gray2};
           font-family: ${pretendard.style.fontFamily};
           font-weight: ${pretendard.style.fontWeight};
