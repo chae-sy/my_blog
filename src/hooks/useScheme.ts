@@ -11,17 +11,17 @@ const useScheme = (): [SchemeType, SetScheme] => {
   const queryClient = useQueryClient()
   const followsSystemTheme = CONFIG.blog.scheme === "system"
 
+  // Update the useQuery hook to force light or dark from the config
   const { data } = useQuery({
     queryKey: queryKey.scheme(),
     enabled: false,
     initialData: followsSystemTheme
-      ? "dark"
-      : (CONFIG.blog.scheme as SchemeType),
+      ? "dark" // Default to "dark" if the system theme is followed
+      : (CONFIG.blog.scheme === "light" ? "light" : "dark"),  // Force light or dark from the config
   })
 
   const setScheme = (scheme: SchemeType) => {
     setCookie("scheme", scheme)
-
     queryClient.setQueryData(queryKey.scheme(), scheme)
   }
 
@@ -35,7 +35,7 @@ const useScheme = (): [SchemeType, SetScheme] => {
         : "light"
       : data
     setScheme(cachedScheme || defaultScheme)
-  }, [])
+  }, [data, followsSystemTheme]) // Add `data` and `followsSystemTheme` as dependencies
 
   return [data, setScheme]
 }
