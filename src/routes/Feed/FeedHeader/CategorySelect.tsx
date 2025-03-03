@@ -16,13 +16,16 @@ const CategorySelect: React.FC<Props> = () => {
   const currentCategory = `${router.query.category || ``}` || DEFAULT_CATEGORY
 
   const handleOptionClick = (category: string) => {
-    router.push({
-      query: {
-        ...router.query,
-        category,
-      },
-    })
-  }
+  const { q } = router.query // Keep search query if present
+
+  router.push({
+    query: {
+      category, // Only keep category
+      q: q || "", // Keep search query if it exists
+      // Tag is NOT included, so it gets removed from the URL
+    },
+  })
+}
   return (
     <StyledWrapper>
       <div ref={dropdownRef} className="wrapper" onClick={handleOpen}>
