@@ -10,7 +10,7 @@ export const COLOR_SET: Record<string, string> = {
   8: "rgb(254 249 195)",
   9: "rgb(255 230 185)",
   A: "rgb(254 202 202)",
-  B: "rgb(226 232 240))",
+  B: "rgb(226 232 240)",
   C: "rgb(252 231 243)",
   D: "rgb(233 213 255)",
   E: "rgb(199 210 254)",
