@@ -5,7 +5,7 @@ import {
   AiOutlineGithub,
   AiOutlineInstagram,
   AiOutlineMail,
-  AiFillCopy,
+  AiFillFile,
 } from "react-icons/ai"
 import { CONFIG } from "site.config"
 import { Emoji } from "src/components/Emoji"
@@ -30,11 +30,11 @@ const ContactCard: React.FC = () => {
         )}
         {CONFIG.profile.CV && (
           <a
-            href={`https://myblog-sychaes-projects.vercel.app/:${CONFIG.profile.email}`}
+            href={`https://myblog-sychaes-projects.vercel.app/:${CONFIG.profile.CV}`}
             rel="noreferrer"
             target="_blank"
           >
-            <AiFillCopy className="icon" />
+            <AiFillFile className="icon" />
             <div className="name">CV</div>
           </a>
         )}
