@@ -11,12 +11,12 @@ const useScheme = (): [SchemeType, SetScheme] => {
   const queryClient = useQueryClient()
   const followsSystemTheme = CONFIG.blog.scheme === "system"
 
-  // Update the useQuery hook to force light or dark from the config
-  const { data } = useQuery({
+  // Add type assertion to ensure 'data' is of type SchemeType
+  const { data } = useQuery<SchemeType>({
     queryKey: queryKey.scheme(),
     enabled: false,
     initialData: followsSystemTheme
-      ? "dark" // Default to "dark" if the system theme is followed
+      ? "dark"  // Default to "dark" if the system theme is followed
       : (CONFIG.blog.scheme === "light" ? "light" : "dark"),  // Force light or dark from the config
   })
 
