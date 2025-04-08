@@ -27,8 +27,10 @@ const TableOfContents: React.FC<Props> = ({ recordMap }) => {
       }
       return null;
     })
-    .filter((x): x is { id: string; text: string; type: string } => !!x);
-
+    .filter((x): x is { id: string; text: string; type: "header" | "sub_header" | "sub_sub_header" } =>
+      x !== null
+    );
+    
   return (
     <nav style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
       {tocEntries.map(({ id, text, type }) => {
