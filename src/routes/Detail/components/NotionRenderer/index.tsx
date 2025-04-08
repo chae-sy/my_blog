@@ -113,6 +113,7 @@ const NotionRenderer: FC<Props> = ({ recordMap }) => {
 
 export default NotionRenderer;
 
+// index.tsx (or wherever StyledWrapper lives)
 const StyledWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 280px;
@@ -124,19 +125,18 @@ const StyledWrapper = styled.div`
     width: 100%;
   }
 
+  /* THIS is your sidebar wrapper */
   .toc {
-    /* pin it & give it your card look */
     position: sticky;
-    top: 80px;              /* match your header height */
+    top: 80px;
     background: #e8f1fb;
     border-radius: 12px;
     padding: 16px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-
-    /* 3) cap its height to viewport minus header & padding */
     max-height: calc(100vh - 80px - 32px);
     overflow-y: auto;
 
+    /* ensure each link is a block with its own line */
     .toc-nav a {
       display: block;
       font-size: 0.95rem;

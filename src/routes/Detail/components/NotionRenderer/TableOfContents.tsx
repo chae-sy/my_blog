@@ -47,24 +47,26 @@ const TableOfContents: React.FC<Props> = ({ recordMap }) => {
 
     // 1) If there are no real headings, render nothing
     if (tocEntries.length === 0) return null;
-  return (
-    <nav className="toc-nav">
-  {tocEntries.map(({ id, text, type }) => {
-    const level = type === "header" ? 1 : type === "sub_header" ? 2 : 3;
+
     return (
-      <a
-        key={id}
-        href={`#${id}`}
-        title={text}
-        style={{ marginLeft: (level - 1) * 16 + "px" }}
-      >
-        <span className="toc-text">{text}</span>
-      </a>
+      <aside className="toc">
+        <nav className="toc-nav">
+          {tocEntries.map(({ id, text, type }) => {
+            const level = type === "header" ? 1 : type === "sub_header" ? 2 : 3;
+            return (
+              <a
+                key={id}
+                href={`#${id}`}
+                title={text}
+                style={{ marginLeft: (level - 1) * 16 + "px" }}
+              >
+                <span className="toc-text">{text}</span>
+              </a>
+            );
+          })}
+        </nav>
+      </aside>
     );
-  })}
-</nav>
-
-  );
-};
-
-export default TableOfContents;
+  };
+  
+  export default TableOfContents;
