@@ -11,7 +11,11 @@ const TableOfContents: React.FC<Props> = ({ recordMap }) => {
   const tocEntries = Object.values(recordMap.block)
     .map((block) => {
       const value = block.value;
-      if (value?.type === "header" || value?.type === "sub_header" || value?.type === "sub_sub_header") {
+      if (
+        value?.type === "header" ||
+        value?.type === "sub_header" ||
+        value?.type === "sub_sub_header"
+      ) {
         return {
           id: value.id.replace(/-/g, ""),
           text: value.properties?.title?.[0]?.[0] || "Untitled",
@@ -23,23 +27,31 @@ const TableOfContents: React.FC<Props> = ({ recordMap }) => {
     .filter(Boolean);
 
   const getIndentationClass = (type: string) => {
-    if (type === "sub_header") return "ml-4"; // one indent
-    if (type === "sub_sub_header") return "ml-8"; // two indents
-    return "";
+    switch (type) {
+      case "sub_header":
+        return "ml-4 text-sm";
+      case "sub_sub_header":
+        return "ml-8 text-xs";
+      default:
+        return "text-base";
+    }
   };
 
   return (
-    <nav className="notion-table-of-contents space-y-1">
-      {tocEntries.map((entry) => (
-        <a
-          key={entry?.id}
-          href={`#${entry?.id}`}
-          className={`block truncate text-sm text-gray-700 hover:text-black ${getIndentationClass(entry?.type ?? "")}`}
-          title={entry?.text}
-        >
-          {entry?.text}
-        </a>
-      ))}
+    <nav className="notion-table-of-contents space-y-2">
+      {tocEntries.map((entry) => {
+        const { id, text, type = "" } = entry!;
+        return (
+          <a
+            key={id}
+            href={`#${id}`}
+            className={`block break-words hover:text-black text-gray-800 ${getIndentationClass(type)}`}
+            title={text}
+          >
+            {text}
+          </a>
+        );
+      })}
     </nav>
   );
 };
