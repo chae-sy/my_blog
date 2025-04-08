@@ -193,4 +193,8 @@ const StyledWrapper = styled.div`
     margin-left: 32px;
     opacity: 0.8;
   }
+  .toc-item.active {
+  background: rgba(0, 0, 0, 0.05);
+  font-weight: 600;
+}
 `
