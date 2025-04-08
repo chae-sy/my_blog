@@ -94,22 +94,46 @@ type Props = {
 }
 
 const NotionRenderer: FC<Props> = ({ recordMap }) => {
-  const [scheme] = useScheme();
+  const [scheme] = useScheme()
+
+  // ✂️ Remove all collection‐view blocks (this includes the page‐properties table)
+  const filteredBlocks = Object.fromEntries(
+    Object.entries(recordMap.block).filter(
+      ([, b]) =>
+        b.value.type !== "collection_view" &&
+        b.value.type !== "collection_view_page"
+    )
+  )
+
+  const cleanedRecordMap: ExtendedRecordMap = {
+    ...recordMap,
+    block: filteredBlocks,
+  }
+
   return (
     <StyledWrapper>
       <div className="content">
         <_NotionRenderer
           darkMode={scheme === "dark"}
-          recordMap={recordMap}
-          components={{ Code, Collection, Equation, Modal, Pdf, nextImage: Image, nextLink: Link }}
+          recordMap={cleanedRecordMap}
+          components={{
+            Code,
+            Collection,   // if you still need inline collections, leave this
+            Equation,
+            Modal,
+            Pdf,
+            nextImage: Image,
+            nextLink: Link,
+          }}
           mapPageUrl={mapPageUrl}
         />
       </div>
-        {/* TableOfContents now renders its own <aside> (or null) */}
-        <TableOfContents recordMap={recordMap} />
+
+      {/* only renders if there are headings */}
+      <TableOfContents recordMap={cleanedRecordMap} />
     </StyledWrapper>
-  );
-};
+  )
+}
 
 export default NotionRenderer;
 
