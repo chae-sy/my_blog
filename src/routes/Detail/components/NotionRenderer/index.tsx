@@ -112,7 +112,7 @@ const NotionRenderer: FC<Props> = ({ recordMap }) => {
 
   return (
     <StyledWrapper>
-      <div className="content">
+      <main className="content">
         <_NotionRenderer
           darkMode={scheme === "dark"}
           recordMap={cleanedRecordMap}
@@ -127,10 +127,12 @@ const NotionRenderer: FC<Props> = ({ recordMap }) => {
           }}
           mapPageUrl={mapPageUrl}
         />
-      </div>
+      </main>
 
       {/* only renders if there are headings */}
-      <TableOfContents recordMap={cleanedRecordMap} />
+      <aside className="sidebar">
+          <TableOfContents recordMap={cleanedRecordMap} />
+        </aside>
     </StyledWrapper>
   )
 }
@@ -143,54 +145,48 @@ const StyledWrapper = styled.div`
   grid-template-columns: 1fr 280px;
   gap: 24px;
   align-items: start;
-
+  margin-bottom: 48px;
+  
   .content {
     max-width: 800px;
     width: 100%;
   }
 
+    .sidebar {
+    position: sticky;
+    top: 80px; /* keeps TOC under header as you scroll */
+  }
+
+
   /* THIS is your sidebar wrapper */
   .toc {
-    position: sticky;
-    top: 80px;
-    align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.toc-item {
+  text-decoration: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+.toc-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
 
-    /* 1) new card color */
-    background: #f0f4f8;       /* ← pick any hex you like */
-    border-radius: 12px;
-    padding: 16px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    max-height: calc(100vh - 80px - 32px);
-    overflow-y: auto;
+/* top‑level */
+.toc-item.level-1 {
+  margin-left: 0;
+  font-weight: 600;
+}
 
-    /* 2) uniform font-size & 3) wider line spacing */
-    .toc-nav a {
-      font-size: 0.95rem;      /* same size for all levels */
-      line-height: 1.6;        /* more vertical breathing room */
-      color: #333;
-      text-decoration: none;
-      display: block;
-      position: relative;
-      overflow: hidden;
-      padding: 2px 0;          /* give the highlight some vertical space */
-      margin-left: 0;          /* we still compute margin-left inline for indent */
-    }
+.toc-item.level-2 {
+  margin-left: 16px;
+  opacity: 0.9;
+}
+.toc-item.level-3 {
+  margin-left: 32px;
+  opacity: 0.8;
+}
 
-    /* 4) sliding gray highlight on hover */
-    .toc-nav a::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%) translateX(-100%);
-      width: 100%;
-      height: 1.2em;             /* roughly matches your line-height */
-      background-color: rgba(0,0,0,0.05);
-      transition: transform 0.3s ease;
-      z-index: -1;
-    }
-    .toc-nav a:hover::before {
-      transform: translateY(-50%) translateX(0);
-    }
-  }
-`;
+`
