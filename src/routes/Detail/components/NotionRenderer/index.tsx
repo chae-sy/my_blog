@@ -4,7 +4,6 @@ import Link from "next/link"
 import { ExtendedRecordMap } from "notion-types"
 import useScheme from "src/hooks/useScheme"
 import TableOfContents from "./TableOfContents"; // Adjust path if needed
-import styled from "@emotion/styled";
 
 // core styles shared by all of react-notion-x (required)
 import "react-notion-x/src/styles.css"
