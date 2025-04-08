@@ -16,9 +16,13 @@ const TableOfContents: React.FC<Props> = ({ recordMap }) => {
         value?.type === "sub_header" ||
         value?.type === "sub_sub_header"
       ) {
+        // Fix: flatten title to include emojis and multi-part content
+        const rawTitle = value.properties?.title;
+        const title = rawTitle?.flat?.().join("") ?? "Untitled";
+
         return {
           id: value.id.replace(/-/g, ""),
-          text: value.properties?.title?.[0]?.[0] || "Untitled",
+          text: title,
           type: value.type,
         };
       }
@@ -38,14 +42,14 @@ const TableOfContents: React.FC<Props> = ({ recordMap }) => {
   };
 
   return (
-    <nav className="notion-table-of-contents space-y-2">
+    <nav className="notion-table-of-contents flex flex-col gap-1">
       {tocEntries.map((entry) => {
         const { id, text, type = "" } = entry!;
         return (
           <a
             key={id}
             href={`#${id}`}
-            className={`block break-words hover:text-black text-gray-800 ${getIndentationClass(type)}`}
+            className={`whitespace-pre-wrap break-words hover:text-black text-gray-800 ${getIndentationClass(type)}`}
             title={text}
           >
             {text}
