@@ -155,15 +155,15 @@ const StyledWrapper = styled.div`
   .sidebar {
     position: sticky;
     top: 0;               /* stick it to the top of the viewport */
-    padding-left: 16px;               /* push it in from the edge */
+    padding-left: 64px;               /* push it in from the edge */
   }
 
   /* wrap your TOC in a white card so it never overlaps */
   .toc {
-    background: white;
+    /*background: white;
     border-radius: 8px;
     padding: 16px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);*/
     display: flex;
     flex-direction: column;
     gap: 4px;
