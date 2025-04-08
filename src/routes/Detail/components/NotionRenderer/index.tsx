@@ -142,51 +142,55 @@ export default NotionRenderer;
 // index.tsx (or wherever StyledWrapper lives)
 const StyledWrapper = styled.div`
   display: grid;
-  grid-template-columns: 1fr 280px;
+  grid-template-columns: 1fr 300px;   /* give it a little more room */
   gap: 24px;
   align-items: start;
   margin-bottom: 48px;
-  
+
   .content {
     max-width: 800px;
     width: 100%;
   }
 
-    .sidebar {
+  .sidebar {
     position: sticky;
-    top: 80px; /* keeps TOC under header as you scroll */
+    top: 0;               /* stick it to the top of the viewport */
+    padding-left: 16px;               /* push it in from the edge */
   }
 
-
-  /* THIS is your sidebar wrapper */
+  /* wrap your TOC in a white card so it never overlaps */
   .toc {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.toc-item {
-  text-decoration: none;
-  padding: 4px 8px;
-  border-radius: 4px;
-  transition: background 0.2s;
-}
-.toc-item:hover {
-  background: rgba(0, 0, 0, 0.05);
-}
+    background: white;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
 
-/* top‑level */
-.toc-item.level-1 {
-  margin-left: 0;
-  font-weight: 600;
-}
+  .toc-item {
+    text-decoration: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background 0.2s;
+    color: #333;
+  }
 
-.toc-item.level-2 {
-  margin-left: 16px;
-  opacity: 0.9;
-}
-.toc-item.level-3 {
-  margin-left: 32px;
-  opacity: 0.8;
-}
+  .toc-item:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
 
+  .toc-item.level-1 {
+    margin-left: 0;
+    opacity : 0.9;
+    }
+  .toc-item.level-2 {
+    margin-left: 16px;
+    opacity: 0.9;
+  }
+  .toc-item.level-3 {
+    margin-left: 32px;
+    opacity: 0.8;
+  }
 `
