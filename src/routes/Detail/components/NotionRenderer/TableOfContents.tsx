@@ -34,7 +34,7 @@ const TableOfContents: React.FC<Props> = ({ recordMap }) => {
         <a
           key={entry?.id}
           href={`#${entry?.id}`}
-          className={`block truncate text-sm text-gray-700 hover:text-black ${getIndentationClass(entry?.type)}`}
+          className={`block truncate text-sm text-gray-700 hover:text-black ${getIndentationClass(entry?.type ?? "")}`}
           title={entry?.text}
         >
           {entry?.text}
