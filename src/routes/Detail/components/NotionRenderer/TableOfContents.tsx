@@ -10,47 +10,48 @@ const TableOfContents: React.FC<Props> = ({ recordMap }) => {
 
   const tocEntries = Object.values(recordMap.block)
     .map((block) => {
-      const value = block.value;
+      const v = block.value;
       if (
-        value?.type === "header" ||
-        value?.type === "sub_header" ||
-        value?.type === "sub_sub_header"
+        v?.type === "header" ||
+        v?.type === "sub_header" ||
+        v?.type === "sub_sub_header"
       ) {
-        // Fix: flatten title to include emojis and multi-part content
-        const rawTitle = value.properties?.title;
-        const title = rawTitle?.flat?.().join("") ?? "Untitled";
-
+        // flatten title so emojis + text all come through
+        const raw = v.properties?.title ?? [];
+        const text = raw.flat(2).join("") || "Untitled";
         return {
-          id: value.id.replace(/-/g, ""),
-          text: title,
-          type: value.type,
+          id: v.id.replace(/-/g, ""),
+          text,
+          type: v.type,
         };
       }
       return null;
     })
-    .filter(Boolean);
-
-  const getIndentationClass = (type: string) => {
-    switch (type) {
-      case "sub_header":
-        return "ml-4 text-sm";
-      case "sub_sub_header":
-        return "ml-8 text-xs";
-      default:
-        return "text-base";
-    }
-  };
+    .filter((x): x is { id: string; text: string; type: string } => !!x);
 
   return (
-    <nav className="notion-table-of-contents flex flex-col gap-1">
-      {tocEntries.map((entry) => {
-        const { id, text, type = "" } = entry!;
+    <nav style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+      {tocEntries.map(({ id, text, type }) => {
+        // compute level & indentation
+        let level = 1;
+        if (type === "sub_header") level = 2;
+        else if (type === "sub_sub_header") level = 3;
+
         return (
           <a
             key={id}
             href={`#${id}`}
-            className={`whitespace-pre-wrap break-words hover:text-black text-gray-800 ${getIndentationClass(type)}`}
             title={text}
+            style={{
+              display: "block",
+              marginLeft: (level - 1) * 16 + "px",   // 0px, 16px, 32px
+              fontSize: level === 1 ? "1rem" : level === 2 ? "0.9rem" : "0.8rem",
+              whiteSpace: "normal",
+              wordWrap: "break-word",
+              overflowWrap: "break-word",
+              color: "#333",
+              textDecoration: "none",
+            }}
           >
             {text}
           </a>

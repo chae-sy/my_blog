@@ -3,8 +3,8 @@ const CONFIG = {
   profile: {
     name: "Seoyoon Chae",
     image: "/default-icon.png", // If you want to create your own notion avatar, check out https://notion-avatar.vercel.app
-    role: "frontend developer",
-    bio: "undergrad student",
+    role: "studying Electrical Engineering in Sungkyunkwan University, Suwon, Korea",
+    bio: "Sustainable Hardware for Smarter AI",
     email: "sychaeee@g.skku.edu",
     linkedin: "",
     github: "chae-sy",
