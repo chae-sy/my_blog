@@ -105,9 +105,8 @@ const NotionRenderer: FC<Props> = ({ recordMap }) => {
           mapPageUrl={mapPageUrl}
         />
       </div>
-      <aside className="toc">
+        {/* TableOfContents now renders its own <aside> (or null) */}
         <TableOfContents recordMap={recordMap} />
-      </aside>
     </StyledWrapper>
   );
 };
@@ -126,32 +125,33 @@ const StyledWrapper = styled.div`
   }
 
   .toc {
+    /* pin it & give it your card look */
     position: sticky;
-    top: 80px;
-    align-self: start;
-
+    top: 80px;              /* match your header height */
     background: #e8f1fb;
     border-radius: 12px;
     padding: 16px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 
-    /* uniform typography */
+    /* 3) cap its height to viewport minus header & padding */
+    max-height: calc(100vh - 80px - 32px);
+    overflow-y: auto;
+
     .toc-nav a {
       display: block;
       font-size: 0.95rem;
       line-height: 1.6;
       color: #333;
       text-decoration: none;
-      padding: 4px 0;      /* vertical breathing room */
+      padding: 4px 0;
     }
 
-    /* this is on the inner span now */
     .toc-nav .toc-text {
       position: relative;
-      display: inline-block;  /* shrink‑wrap to text */
-      padding: 0 2px;         /* horizontal padding for highlight */
+      display: inline-block;
+      padding: 0 2px;
+      overflow: hidden;
     }
-
     .toc-nav .toc-text::before {
       content: "";
       position: absolute;
@@ -164,7 +164,6 @@ const StyledWrapper = styled.div`
       transition: transform 0.3s ease;
       z-index: -1;
     }
-
     .toc-nav a:hover .toc-text::before {
       transform: translateX(0);
     }

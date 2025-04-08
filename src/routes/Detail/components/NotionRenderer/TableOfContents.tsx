@@ -45,6 +45,8 @@ const TableOfContents: React.FC<Props> = ({ recordMap }) => {
       };
     });
 
+    // 1) If there are no real headings, render nothing
+    if (tocEntries.length === 0) return null;
   return (
     <nav className="toc-nav">
   {tocEntries.map(({ id, text, type }) => {
