@@ -14,30 +14,32 @@ type Props = {
 const TableOfContents: React.FC<Props> = ({ recordMap }) => {
   if (!recordMap) return null;
 
-  const tocEntries: TocEntry[] = Object.values(recordMap.block)
+  const tocEntries = Object.values(recordMap.block)
     .map((block) => {
       const v = block.value;
+      // only real page‐content headings (not the property‐table rows)
       if (
-        v?.type === "header" ||
-        v?.type === "sub_header" ||
-        v?.type === "sub_sub_header"
+        (v.type === "header" ||
+         v.type === "sub_header" ||
+         v.type === "sub_sub_header") &&
+        v.parent_table === "block"
       ) {
-        // 🔑 grab only the text part of each run
+        // pull only the text (no annotation flags)
         const rawTitle = (v.properties?.title as any[][]) || [];
-        const text = rawTitle.map((run) => run[0] as string).join("") || "Untitled"; //only ever pull out the string content.
+        const text = rawTitle.map((run) => run[0] as string).join("") || "Untitled";
 
         return {
           id: v.id.replace(/-/g, ""),
           text,
           type: v.type,
-        };
+        } as TocEntry;
       }
       return null;
     })
     .filter((x): x is TocEntry => x !== null);
 
   return (
-    <nav style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+    <nav className="toc-nav">
       {tocEntries.map(({ id, text, type }) => {
         const level = type === "header" ? 1 : type === "sub_header" ? 2 : 3;
         return (
@@ -47,7 +49,7 @@ const TableOfContents: React.FC<Props> = ({ recordMap }) => {
             title={text}
             style={{
               display: "block",
-              marginLeft: (level - 1) * 16 + "px",    // 0, 16, 32px
+              marginLeft: (level - 1) * 16 + "px",
               fontSize:
                 level === 1 ? "1rem" : level === 2 ? "0.9rem" : "0.8rem",
               whiteSpace: "normal",

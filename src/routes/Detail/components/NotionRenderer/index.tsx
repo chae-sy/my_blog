@@ -4,6 +4,7 @@ import Link from "next/link"
 import { ExtendedRecordMap } from "notion-types"
 import useScheme from "src/hooks/useScheme"
 import TableOfContents from "./TableOfContents"; // Adjust path if needed
+import styled from "@emotion/styled";
 
 // core styles shared by all of react-notion-x (required)
 import "react-notion-x/src/styles.css"
@@ -97,24 +98,14 @@ const NotionRenderer: FC<Props> = ({ recordMap }) => {
   const [scheme] = useScheme();
   return (
     <StyledWrapper>
-      {/* 1st child = main content */}
       <div className="content">
         <_NotionRenderer
           darkMode={scheme === "dark"}
           recordMap={recordMap}
-          components={{
-            Code,
-            Collection,
-            Equation,
-            Modal,
-            Pdf,
-            nextImage: Image,
-            nextLink: Link,
-          }}
+          components={{ Code, Collection, Equation, Modal, Pdf, nextImage: Image, nextLink: Link }}
           mapPageUrl={mapPageUrl}
         />
       </div>
-    {/* 2nd child = sidebar */}
       <aside className="toc">
         <TableOfContents recordMap={recordMap} />
       </aside>
@@ -122,24 +113,28 @@ const NotionRenderer: FC<Props> = ({ recordMap }) => {
   );
 };
 
-export default NotionRenderer
+export default NotionRenderer;
 
 const StyledWrapper = styled.div`
   display: grid;
-  grid-template-columns: 1fr 280px;  /* main area + 280px sidebar */
+  grid-template-columns: 1fr 280px;
   gap: 24px;
-  align-items: start;               /* align top edges */
+  align-items: start;
 
-  /* keep the TOC visible as you scroll */
-  .toc {
-    position: sticky;
-    top: 80px;      /* adjust to your header height */
-    align-self: start;
-  }
-
-  /* optional: constrain width of your Notion content */
   .content {
     max-width: 800px;
     width: 100%;
+  }
+
+  .toc {
+    position: sticky;
+    top: 80px; /* adjust if you have a taller header bar */
+    align-self: start;
+
+    /* match your white card look */
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
 `;
