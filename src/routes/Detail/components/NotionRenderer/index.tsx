@@ -94,39 +94,52 @@ type Props = {
 }
 
 const NotionRenderer: FC<Props> = ({ recordMap }) => {
-  const [scheme] = useScheme()
+  const [scheme] = useScheme();
   return (
     <StyledWrapper>
-      <TableOfContents recordMap={recordMap} />
-      <_NotionRenderer
-        darkMode={scheme === "dark"}
-        recordMap={recordMap}
-        components={{
-          Code,
-          Collection,
-          Equation,
-          Modal,
-          Pdf,
-          nextImage: Image,
-          nextLink: Link,
-        }}
-        mapPageUrl={mapPageUrl}
-      />
+      {/* 1st child = main content */}
+      <div className="content">
+        <_NotionRenderer
+          darkMode={scheme === "dark"}
+          recordMap={recordMap}
+          components={{
+            Code,
+            Collection,
+            Equation,
+            Modal,
+            Pdf,
+            nextImage: Image,
+            nextLink: Link,
+          }}
+          mapPageUrl={mapPageUrl}
+        />
+      </div>
+    {/* 2nd child = sidebar */}
+      <aside className="toc">
+        <TableOfContents recordMap={recordMap} />
+      </aside>
     </StyledWrapper>
-  )
-}
+  );
+};
 
 export default NotionRenderer
 
 const StyledWrapper = styled.div`
-  /* // TODO: why render? */
-  .notion-collection-page-properties {
-    display: none !important;
+  display: grid;
+  grid-template-columns: 1fr 280px;  /* main area + 280px sidebar */
+  gap: 24px;
+  align-items: start;               /* align top edges */
+
+  /* keep the TOC visible as you scroll */
+  .toc {
+    position: sticky;
+    top: 80px;      /* adjust to your header height */
+    align-self: start;
   }
-  .notion-page {
-    padding: 0;
-  }
-  .notion-list {
+
+  /* optional: constrain width of your Notion content */
+  .content {
+    max-width: 800px;
     width: 100%;
   }
-`
+`;
