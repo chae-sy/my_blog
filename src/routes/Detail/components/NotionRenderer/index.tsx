@@ -130,40 +130,43 @@ const StyledWrapper = styled.div`
     top: 80px;
     align-self: start;
 
-    /* 1) new card color */
-    background: #f5f8fc;       /* ← pick any hex you like */
+    background: #e8f1fb;
     border-radius: 12px;
     padding: 16px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 
-    /* 2) uniform font-size & 3) wider line spacing */
+    /* uniform typography */
     .toc-nav a {
-      font-size: 0.95rem;      /* same size for all levels */
-      line-height: 1.6;        /* more vertical breathing room */
+      display: block;
+      font-size: 0.95rem;
+      line-height: 1.6;
       color: #333;
       text-decoration: none;
-      display: block;
-      position: relative;
-      overflow: hidden;
-      padding: 2px 0;          /* give the highlight some vertical space */
-      margin-left: 0;          /* we still compute margin-left inline for indent */
+      padding: 4px 0;      /* vertical breathing room */
     }
 
-    /* 4) sliding gray highlight on hover */
-    .toc-nav a::before {
+    /* this is on the inner span now */
+    .toc-nav .toc-text {
+      position: relative;
+      display: inline-block;  /* shrink‑wrap to text */
+      padding: 0 2px;         /* horizontal padding for highlight */
+    }
+
+    .toc-nav .toc-text::before {
       content: "";
       position: absolute;
+      top: 0;
       left: 0;
-      top: 50%;
-      transform: translateY(-50%) translateX(-100%);
       width: 100%;
-      height: 1.2em;             /* roughly matches your line-height */
+      height: 100%;
       background-color: rgba(0,0,0,0.05);
+      transform: translateX(-100%);
       transition: transform 0.3s ease;
       z-index: -1;
     }
-    .toc-nav a:hover::before {
-      transform: translateY(-50%) translateX(0);
+
+    .toc-nav a:hover .toc-text::before {
+      transform: translateX(0);
     }
   }
 `;
