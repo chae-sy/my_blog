@@ -114,11 +114,12 @@ const NotionRenderer: FC<Props> = ({ recordMap }) => {
     <StyledWrapper>
       <main className="content">
         <_NotionRenderer
+        fullPage={false} 
           darkMode={scheme === "dark"}
           recordMap={cleanedRecordMap}
           components={{
             Code,
-            Collection,   // if you still need inline collections, leave this
+            // Collection,   // if you still need inline collections, leave this
             Equation,
             Modal,
             Pdf,
