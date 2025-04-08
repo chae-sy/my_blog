@@ -155,7 +155,7 @@ const StyledWrapper = styled.div`
 
   .sidebar {
     position: sticky;
-    top: 0;               /* stick it to the top of the viewport */
+    top: 80px;               /* stick it to the top of the viewport */
     padding-left: 64px;               /* push it in from the edge */
   }
 
