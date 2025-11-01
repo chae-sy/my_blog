@@ -7,6 +7,8 @@ import {
   AiOutlineMail,
   AiFillFile,
 } from "react-icons/ai"
+import { SiGooglescholar } from "react-icons/si" // ✅ 추가
+
 import { CONFIG } from "site.config"
 import { Emoji } from "src/components/Emoji"
 
@@ -68,7 +70,16 @@ const ContactCard: React.FC = () => {
             <div className="name">instagram</div>
           </a>
         )}
-        
+        {CONFIG.profile.scholar && ( // ✅ Google Scholar
+          <a
+            href={`https://scholar.google.com/citations?user=${CONFIG.profile.scholar}`}
+            rel="noreferrer"
+            target="_blank"
+          >
+            <SiGooglescholar className="icon" />
+            <div className="name">scholar</div>
+          </a>
+        )}
         
       </StyledWrapper>
     </>

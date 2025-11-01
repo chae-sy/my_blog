@@ -6,9 +6,10 @@ const CONFIG = {
     role: "",
     bio: "💡Efficient Hardware-Software Co-Design for Powerful Neural Network. ✏️Studying Electronic & Electrical Engineering in Sungkyunkwan University, Suwon, Korea.",
     email: "sychaeee@g.skku.edu",
-    linkedin: "",
+    linkedin: "seoyoon-chae-105400334",
     github: "chae-sy",
     instagram: "",
+    scholar: "AbCdEfGhIjK",
     CV:"resume", // put your slug here
   },
   projects: [
