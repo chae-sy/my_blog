@@ -9,7 +9,7 @@ const CONFIG = {
     linkedin: "seoyoon-chae-105400334",
     github: "chae-sy",
     instagram: "",
-    scholar: "AbCdEfGhIjK",
+    scholar: "",
     CV:"resume", // put your slug here
   },
   projects: [
