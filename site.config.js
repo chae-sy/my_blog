@@ -21,7 +21,7 @@ const CONFIG = {
   // blog setting (required)
   blog: {
     title: "Seoyoon Chae",
-    description: "welcome to my blog!",
+    description: "Welcome to my blog!",
     scheme: "light", // 'light' | 'dark' | 'system'
   },
 
