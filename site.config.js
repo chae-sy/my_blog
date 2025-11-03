@@ -4,7 +4,7 @@ const CONFIG = {
     name: "Seoyoon Chae",
     image: "/default-icon.png", // If you want to create your own notion avatar, check out https://notion-avatar.vercel.app
     role: "",
-    bio: "💡Efficient Hardware-Software Co-Design for Powerful Neural Network. ✏️Studying Electronic & Electrical Engineering in Sungkyunkwan University, Suwon, Korea.",
+    bio: "💡Hardware-Software Co-Design for Efficient Neural Network. ✏️Studying Electronic & Electrical Engineering in Sungkyunkwan University, Suwon, Korea.",
     email: "sychaeee@g.skku.edu",
     linkedin: "seoyoon-chae-105400334",
     github: "chae-sy",
